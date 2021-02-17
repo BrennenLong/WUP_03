@@ -15,6 +15,7 @@ require(tigerstats)
 davisdata <- read.csv(file="UCDavis.csv")
 ```
 ## Our Goal is to answer this question Is there a difference between the alcohol consumed between the row
+
 ## you choose to sit in??
 
 ## Now with ggplot - first select the basic data
@@ -43,8 +44,24 @@ This boxplot shows us that heavy drinkers tend to stay more to the back.
 favstats(alcohol~Seat,data=davisdata)
 ```
 
+People who sit towards the back drink 3x more alcohol than the people who prefer to sit in the middle or the back.
+
 ## Inferential Tests
+
+```{r}
+model1 <- aov(alcohol~Seat,data=davisdata)
+summary.aov(model1)
+```
+
+The P value is small enough that it is very unlikely that the total alcohol consumption in all three seat slots is the same.
+
+```{r}
+plot(TukeyHSD(model1))
+```
+
+The Turkey plot shows that people in the back drink a significant amount more than people in the front as the data shows the people in the middle. The middle shows no data other than average alcohol consumption.
 
 ## Conclusions
 
+The evidence shows that people that consume alcohol tend to sit near the back of classrooms.
 
